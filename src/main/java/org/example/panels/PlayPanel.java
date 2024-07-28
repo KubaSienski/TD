@@ -15,11 +15,11 @@ import static org.example.utilz.ImgLoader.LoadLevel;
 
 @Getter
 public class PlayPanel extends JPanel {
-    private Game game;
-    private Tile[][] map;
+    private final Game game;
+    private final Tile[][] map;
     private int startX, startY;
     private int endX, endY;
-    private AngryFace angryFace;
+    private final AngryFace angryFace;
 
     public PlayPanel(Game game){
         this.game = game;

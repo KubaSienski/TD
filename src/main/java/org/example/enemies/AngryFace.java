@@ -3,23 +3,13 @@ package org.example.enemies;
 import org.example.tiles.Node;
 import org.example.tiles.Tile;
 import org.example.tiles.TileType;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
-import static org.example.utilz.Constants.TILE_SIZE;
 import static org.example.utilz.ImgLoader.LoadEnemy;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Comparator;
 
-public class AngryFace {
-    private BufferedImage img;
-    private int lives = 1;
-    private EnemyType type = EnemyType.ANGRYFACE;
-    private int x, y, endX, endY;
-    private ArrayList<Node> path;
-    private int pathIndex;
-    private int speedX = 0, speedY = 0;
+public class AngryFace extends Enemy{
 
     public AngryFace(int x, int y, int endX, int endY) {
         this.x = x;
@@ -59,10 +49,6 @@ public class AngryFace {
                 pathIndex++;
             }
         }
-    }
-
-    public void draw(Graphics g) {
-        g.drawImage(img, x * TILE_SIZE + speedX, y * TILE_SIZE + speedY, TILE_SIZE, TILE_SIZE, null);
     }
 
     public void findPath(Tile[][] map) {

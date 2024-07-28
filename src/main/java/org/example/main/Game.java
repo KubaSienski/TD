@@ -7,6 +7,7 @@ import org.example.utilz.GameStates;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 @Data
 public class Game implements Runnable{
@@ -32,7 +33,7 @@ public class Game implements Runnable{
     }
 
     private void loadPanels() {
-        menuPanel = new MenuPanel(this);
+        menuPanel = new MenuPanel();
         playPanel = new PlayPanel(this);
 
         mainPanel.add(menuPanel, "menu");
@@ -40,8 +41,8 @@ public class Game implements Runnable{
     }
 
     public void update(){
-        switch (GameStates.state){
-            case PLAYING -> playPanel.update();
+        if (Objects.requireNonNull(GameStates.state) == GameStates.PLAYING) {
+            playPanel.update();
         }
     }
 
