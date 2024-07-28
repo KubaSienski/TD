@@ -6,7 +6,6 @@ import org.example.tiles.TileType;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static java.lang.Math.abs;
 import static org.example.utilz.Constants.TILE_SIZE;
 import static org.example.utilz.ImgLoader.LoadEnemy;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class AngryFace {
     private int x, y, endX, endY;
     private ArrayList<Node> path;
     private int pathIndex;
-    private final int speed = 1;
+    private int speedX = 0, speedY = 0;
 
     public AngryFace(int x, int y, int endX, int endY) {
         this.x = x;
@@ -35,14 +34,35 @@ public class AngryFace {
     public void move() {
         if (pathIndex < path.size()) {
             Node nextNode = path.get(pathIndex);
-            x = nextNode.getX();
-            y = nextNode.getY();
-            pathIndex++;
+            if(x == nextNode.getX() && y == nextNode.getY()){
+                pathIndex++;
+                return;
+            }
+            if(x > nextNode.getX()){
+                speedX--;
+            } else if (x < nextNode.getX()) {
+                speedX++;
+            }
+            if(speedX == 20 || speedX == -20){
+                x = nextNode.getX();
+                speedX = 0;
+                pathIndex++;
+            }
+            if(y > nextNode.getY()){
+                speedY--;
+            } else if (y < nextNode.getY()) {
+                speedY++;
+            }
+            if(speedY == 20 || speedY == -20){
+                y = nextNode.getY();
+                speedY = 0;
+                pathIndex++;
+            }
         }
     }
 
     public void draw(Graphics g) {
-        g.drawImage(img, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+        g.drawImage(img, x * TILE_SIZE + speedX, y * TILE_SIZE + speedY, TILE_SIZE, TILE_SIZE, null);
     }
 
     public void findPath(Tile[][] map) {
